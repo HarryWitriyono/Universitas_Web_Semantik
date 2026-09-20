@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universitas Contoh - Data Mahasiswa Per Program Studi</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Free Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-blue: #1d61e7;
+      --primary-hover: #154ec2;
+      --primary-light: #eff5ff;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --footer-bg: #0f172a;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      --card-shadow-hover: 0 10px 25px rgba(29, 97, 231, 0.1);
+      --border-color: #e2e8f0;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-emblem {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, #1d61e7, #0b3899);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd700;
+      font-size: 1.4rem;
+      box-shadow: 0 3px 8px rgba(29, 97, 231, 0.25);
+      border: 2px solid #3b82f6;
+    }
+
+    .logo-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary-blue);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2.5px;
+      background-color: var(--primary-blue);
+      border-radius: 2px;
+    }
+
+    .btn-login-nav {
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(29, 97, 231, 0.25);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-login-nav:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      background: linear-gradient(180deg, #f0f5ff 0%, #ffffff 100%);
+      padding: 4rem 2rem 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#cbd5e1 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .hero-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h2 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-dark);
+      letter-spacing: -1px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content h2 span {
+      color: var(--primary-blue);
+      display: block;
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 540px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 0.85rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 14px rgba(29, 97, 231, 0.3);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 6px 20px rgba(29, 97, 231, 0.4);
+    }
+
+    .btn-outline {
+      background-color: white;
+      color: var(--primary-blue);
+      border: 1.5px solid var(--primary-blue);
+      padding: 0.85rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary-light);
+    }
+
+    .hero-quote {
+      font-style: italic;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    /* BROWSER WINDOW MOCKUP IN HERO */
+    .hero-browser-window {
+      background: #eff6ff;
+      border-radius: 12px;
+      border: 1px solid #dbeafe;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      transition: var(--transition);
+    }
+
+    .browser-header {
+      background: #ffffff;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background-color: #ef4444; }
+    .dot-yellow { background-color: #f59e0b; }
+    .dot-green { background-color: #10b981; }
+
+    .browser-bar {
+      flex: 1;
+      height: 22px;
+      background-color: #f1f5f9;
+      border-radius: 4px;
+      margin: 0 0.5rem;
+    }
+
+    .browser-icons {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      display: flex;
+      gap: 8px;
+    }
+
+    .browser-body {
+      padding: 2rem 1.8rem;
+      background: #eef5ff;
+    }
+
+    /* INLINE LOGIN CARD */
+    .login-card-inline {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      max-width: 380px;
+      margin: 0 auto;
+      border: 1px solid #e2e8f0;
+    }
+
+    .login-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .login-card-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .login-card-brand .logo-emblem {
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+    }
+
+    .login-card-brand h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+
+    .login-card-brand span {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .rdf-badge {
+      background: #0f172a;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .form-field-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-field-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 0.6rem 0.8rem 0.6rem 2.4rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: var(--transition);
+      background: #ffffff;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(29, 97, 231, 0.1);
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .form-row-space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .checkbox-lbl {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .forgot-link-btn {
+      color: var(--primary-blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .forgot-link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .btn-submit-login {
+      width: 100%;
+      background-color: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(29, 97, 231, 0.25);
+      transition: var(--transition);
+    }
+
+    .btn-submit-login:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .login-card-footer {
+      text-align: center;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+    }
+
+    .login-card-footer a {
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    /* PROCESS / ARCHITECTURE SECTION */
+    .process-section {
+      padding: 4.5rem 2rem;
+      background-color: #ffffff;
+      border-top: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .process-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .process-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+    }
+
+    .diagram-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+    }
+
+    .diagram-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .diagram-card-small {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      width: 210px;
+      text-align: left;
+    }
+
+    .diagram-card-small .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .diagram-card-small .mini-brand .logo-emblem {
+      width: 24px;
+      height: 24px;
+      font-size: 0.75rem;
+    }
+
+    .diagram-card-small .mini-brand span {
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+
+    .mini-input-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.65rem;
+      color: var(--text-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .mini-btn-blue {
+      background: var(--primary-blue);
+      color: white;
+      text-align: center;
+      padding: 0.35rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    .diagram-arrow {
+      color: var(--primary-blue);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .arrow-line {
+      height: 2px;
+      width: 30px;
+      background-color: var(--primary-blue);
+    }
+
+    .node-icon-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-blue);
+      background-color: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-blue);
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .diagram-step-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      max-width: 160px;
+      line-height: 1.2;
+    }
+
+    .database-cylinder {
+      width: 60px;
+      height: 60px;
+      background: var(--primary-blue);
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 6px 16px rgba(29, 97, 231, 0.3);
+    }
+
+    .rdf-node-badge {
+      background: #0f172a;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .diagram-session-card {
+      background: white;
+      border: 1.5px solid var(--primary-blue);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 6px 20px rgba(29, 97, 231, 0.08);
+      width: 250px;
+    }
+
+    .session-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      padding: 0.5rem 0.7rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .session-item-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+    }
+
+    .session-item-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+    }
+
+    .sparql-code-snippet {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 0.62rem;
+      padding: 0.6rem;
+      border-radius: 6px;
+      line-height: 1.3;
+      overflow: hidden;
+    }
+
+    /* STATS SECTION */
+    .stats-section {
+      background: linear-gradient(rgba(240, 245, 255, 0.88), rgba(240, 245, 255, 0.88)),
+                  url('https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      padding: 3.5rem 2rem;
+      position: relative;
+    }
+
+    .stats-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      position: relative;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #cbd5e1;
+    }
+
+    .stat-icon {
+      font-size: 1.8rem;
+      color: var(--primary-blue);
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ECOSYSTEM SECTION */
+    .ecosystem-section {
+      padding: 5rem 2rem;
+      background-color: var(--bg-white);
+    }
+
+    .ecosystem-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .ecosystem-content h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.5px;
+    }
+
+    .ecosystem-content p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .ecosystem-quote-box {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary-blue);
+      padding: 2.2rem;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+
+    .ecosystem-quote-box blockquote {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .ecosystem-quote-box p {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      padding: 4rem 2rem 2rem 2rem;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr 0.8fr 1.1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .footer-brand .logo-group {
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand .logo-text h1 {
+      color: white;
+    }
+
+    .footer-column h4 {
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .footer-contact-item i {
+      color: var(--primary-blue);
+      margin-top: 0.2rem;
+    }
+
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .social-icon {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .copyright {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    /* MODAL OVERLAY FOR LOGIN */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-login-wrapper {
+      transform: translateY(20px) scale(0.95);
+      transition: var(--transition);
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-login-wrapper {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    .modal-close-btn:hover {
+      background: #f1f5f9;
+      color: #ef4444;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .ecosystem-container {
+        grid-template-columns: 1fr;
+      }
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero-content h2 {
+        font-size: 2.2rem;
+      }
+      .diagram-flow {
+        flex-direction: column;
+      }
+      .arrow-line {
+        width: 2px;
+        height: 20px;
+      }
+      .diagram-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+      }
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat-item:not(:last-child)::after {
+        display: none;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo-group">
+        <div class="logo-emblem">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Universitas Contoh</h1>
+          <span>Unggul · Islam · Berkemajuan</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#" class="nav-link active">Beranda</a></li>
+        <li><a href="#" class="nav-link">Data Mahasiswa</a></li>
+        <li><a href="#" class="nav-link">Program Studi</a></li>
+        <li><a href="#" class="nav-link">Tentang</a></li>
+        <li><a href="#" class="nav-link">Web Semantik</a></li>
+        <li><a href="#" class="nav-link">Kontak</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <button class="btn-login-nav" id="openLoginBtn">
+          <i class="fa-solid fa-user"></i> Login
+        </button>
+        <div class="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-container">
+      
+      <!-- Left Content -->
+      <div class="hero-content">
+        <h2>Data Mahasiswa <span>Per Program Studi</span></h2>
+        <p class="hero-description">
+          Akses, eksplorasi, dan manfaatkan data mahasiswa secara terbuka, terstruktur, dan terhubung untuk mendukung tata kelola universitas yang lebih baik.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="openModal()">
+            <i class="fa-solid fa-magnifying-glass"></i> Lihat Data Mahasiswa
+          </button>
+          <a href="#ekosistem" class="btn-outline">
+            <i class="fa-solid fa-book-open"></i> Pelajari Web Semantik
+          </a>
+        </div>
+        <p class="hero-quote">“Data yang terhubung, pengetahuan yang lebih luas”</p>
+      </div>
+
+      <!-- Right Content: Browser Window with Integrated Login Box -->
+      <div class="hero-browser-window">
+        <div class="browser-header">
+          <div class="browser-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+          </div>
+          <div class="browser-bar"></div>
+          <div class="browser-icons">
+            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-copy"></i>
+          </div>
+        </div>
+
+        <div class="browser-body">
+          <div class="login-card-inline">
+            <div class="login-card-header">
+              <div class="login-card-brand">
+                <div class="logo-emblem">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                  <h3>Universitas Contoh</h3>
+                  <span>Unggul · Islam · Berkemajuan</span>
+                </div>
+              </div>
+              <div class="rdf-badge">
+                <i class="fa-solid fa-share-nodes"></i> RDF
+              </div>
+            </div>
+
+            <form onsubmit="handleLoginSubmit(event)">
+              <div class="form-field-group">
+                <label>NIM/NIP</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user"></i>
+                  <input type="text" placeholder="Username" required>
+                </div>
+              </div>
+
+              <div class="form-field-group">
+                <label>Kata Sandi</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="heroPassword" placeholder="Kata Sandi" required>
+                  <button type="button" class="password-toggle-btn" onclick="toggleHeroPassword()">
+                    <i class="fa-regular fa-eye-slash" id="heroEyeIcon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-row-space">
+                <label class="checkbox-lbl">
+                  <input type="checkbox"> Ingat Saya
+                </label>
+                <a href="#" class="forgot-link-btn" onclick="alert('Silakan hubungi IT Helpdesk Universitas untuk reset kata sandi.')">Lupa Kata Sandi?</a>
+              </div>
+
+              <button type="submit" class="btn-submit-login">
+                MASUK
+              </button>
+            </form>
+
+            <div class="login-card-footer">
+              <a href="#" onclick="openModal()">Belum Punya Akun?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS ARCHITECTURE SECTION -->
+  <section class="process-section">
+    <div class="process-container">
+      <h2 class="process-title">Proses Akses Terotentikasi Ke Data Semantik</h2>
+
+      <div class="diagram-flow">
+        
+        <!-- Step 1: Login Form Card -->
+        <div class="diagram-step">
+          <div class="diagram-card-small">
+            <div class="mini-brand">
+              <div class="logo-emblem"><i class="fa-solid fa-graduation-cap"></i></div>
+              <span>Universitas Contoh</span>
+              <div class="rdf-badge" style="margin-left: auto; font-size: 0.5rem; padding: 1px 3px;">RDF</div>
+            </div>
+            <div class="mini-input-box"><i class="fa-solid fa-user"></i> Username</div>
+            <div class="mini-input-box"><i class="fa-solid fa-lock"></i> Kata Sandi</div>
+            <div style="display:flex; justify-content:space-between; font-size:0.55rem; margin-bottom: 0.4rem; color: #64748b;">
+              <span><i class="fa-regular fa-square"></i> Ingat Saya</span>
+              <span style="color: #1d61e7;">Lupa Kata Sandi?</span>
+            </div>
+            <div class="mini-btn-blue">MASUK</div>
+          </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="diagram-arrow">
+          <div class="arrow-line"></div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Step 2: Authentication Gateway -->
+        <div class="diagram-step">
+          <div class="node-icon-circle">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="diagram-step-label">Authentication Gateway</div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="diagram-arrow">
+          <div class="arrow-line"></div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Step 3: Database Universitas Contoh -->
+        <div class="diagram-step">
+          <div class="database-cylinder">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <div class="diagram-step-label">Database Universitas Contoh</div>
+        </div>
+
+        <!-- Arrow 3 -->
+        <div class="diagram-arrow">
+          <div class="arrow-line"></div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Step 4: RDF Graph -->
+        <div class="diagram-step">
+          <div class="rdf-node-badge">
+            <i class="fa-solid fa-share-nodes"></i> RDF
+          </div>
+        </div>
+
+        <!-- Arrow 4 -->
+        <div class="diagram-arrow">
+          <div class="arrow-line"></div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Step 5: Authenticated Session with Program Studi List -->
+        <div class="diagram-step">
+          <div class="diagram-session-card">
+            
+            <div class="session-item">
+              <div class="session-item-info">
+                <div class="session-item-icon" style="background:#9333ea;">
+                  <i class="fa-solid fa-desktop"></i>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem;">Teknik Informatika</div>
+                  <div style="font-size:0.65rem; color:#64748b;">412 Mahasiswa</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-arrow-right" style="color:#1d61e7; font-size:0.7rem;"></i>
+            </div>
+
+            <div class="session-item">
+              <div class="session-item-info">
+                <div class="session-item-icon" style="background:#0d9488;">
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem;">Manajemen</div>
+                  <div style="font-size:0.65rem; color:#64748b;">325 Mahasiswa</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-arrow-right" style="color:#1d61e7; font-size:0.7rem;"></i>
+            </div>
+
+            <div class="session-item">
+              <div class="session-item-info">
+                <div class="session-item-icon" style="background:#64748b;">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem;">Program Studi Lainnya</div>
+                  <div style="font-size:0.65rem; color:#64748b;">231 Mahasiswa</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-arrow-right" style="color:#1d61e7; font-size:0.7rem;"></i>
+            </div>
+
+            <!-- SPARQL Code Snippet -->
+            <div class="sparql-code-snippet">
+              PREFIX SPARQL_Query {<br>
+              &nbsp;&nbsp;SELECT ?s ?p ?o<br>
+              &nbsp;&nbsp;WHERE { ?s ?p ?o }<br>
+              }
+            </div>
+
+          </div>
+          <div class="diagram-step-label" style="margin-top:0.6rem;">AUTHENTICATED SESSION</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="stats-section">
+    <div class="stats-container">
+      
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="stat-number">7.842</div>
+        <div class="stat-label">Total Mahasiswa</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-number">28</div>
+        <div class="stat-label">Program Studi</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="stat-number">8</div>
+        <div class="stat-label">Fakultas</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="stat-number" style="font-size: 1.25rem; font-weight: 700; margin-top: 0.5rem;">Data Terhubung</div>
+        <div class="stat-label">dengan Web Semantik</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM SECTION -->
+  <section class="ecosystem-section" id="ekosistem">
+    <div class="ecosystem-container">
+      
+      <div class="ecosystem-content">
+        <h2>Membangun Ekosistem Data Terbuka</h2>
+        <p>
+          Dengan pendekatan <strong>Web Semantik</strong>, data mahasiswa tidak hanya disimpan, tetapi juga dapat dipahami, dihubungkan, dan dimanfaatkan oleh berbagai aplikasi untuk mendukung pendidikan, penelitian, dan inovasi.
+        </p>
+        <button class="btn-primary" onclick="alert('Fitur eksplorasi Web Semantik SPARQL Endpoint dibuka.')">
+          <i class="fa-solid fa-book-open"></i> Tentang Web Semantik
+        </button>
+      </div>
+
+      <div class="ecosystem-quote-box">
+        <blockquote>
+          “Web Semantik memungkinkan data di universitas tidak hanya dilihat oleh manusia, tetapi juga dipahami oleh mesin.”
+        </blockquote>
+        <p>– Menuju Universitas yang Lebih Cerdas</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      
+      <div class="footer-brand">
+        <div class="logo-group">
+          <div class="logo-emblem">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="logo-text">
+            <h1>Universitas Contoh</h1>
+            <span style="color: #64748b;">Unggul · Islam · Berkemajuan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>Tautan Cepat</h4>
+        <ul class="footer-links">
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#">Data Mahasiswa</a></li>
+          <li><a href="#">Program Studi</a></li>
+          <li><a href="#">Tentang</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Sumber Daya</h4>
+        <ul class="footer-links">
+          <li><a href="#">RDF</a></li>
+          <li><a href="#">OWL</a></li>
+          <li><a href="#">SPARQL</a></li>
+          <li><a href="#">Dokumentasi</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Kontak</h4>
+        <ul class="footer-contact-list">
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Jl. Pendidikan No. 1, Kota Bengkulu</span>
+          </li>
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@universitascontoh.ac.id</span>
+          </li>
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+62 736 123456</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="social-links">
+        <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        © 2026 Universitas Contoh. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- LOGIN MODAL OVERLAY -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-login-wrapper">
+      <button class="modal-close-btn" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="login-card-inline" style="max-width:100%; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+        <div class="login-card-header">
+          <div class="login-card-brand">
+            <div class="logo-emblem">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3>Universitas Contoh</h3>
+              <span>Unggul · Islam · Berkemajuan</span>
+            </div>
+          </div>
+          <div class="rdf-badge">
+            <i class="fa-solid fa-share-nodes"></i> RDF
+          </div>
+        </div>
+
+        <form onsubmit="handleLoginSubmit(event)">
+          <div class="form-field-group">
+            <label>NIM/NIP</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" placeholder="Username" required>
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label>Kata Sandi</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="modalPassword" placeholder="Kata Sandi" required>
+              <button type="button" class="password-toggle-btn" onclick="toggleModalPassword()">
+                <i class="fa-regular fa-eye-slash" id="modalEyeIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-row-space">
+            <label class="checkbox-lbl">
+              <input type="checkbox"> Ingat Saya
+            </label>
+            <a href="#" class="forgot-link-btn" onclick="alert('Silakan hubungi IT Helpdesk Universitas.')">Lupa Kata Sandi?</a>
+          </div>
+
+          <button type="submit" class="btn-submit-login">
+            MASUK
+          </button>
+        </form>
+
+        <div class="login-card-footer">
+          <a href="#" onclick="alert('Fitur registrasi mahasiswa baru sedang dibuka di periode PMB.')">Belum Punya Akun?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal Toggle Logic
+    const loginModal = document.getElementById('loginModal');
+    const openLoginBtn = document.getElementById('openLoginBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+      loginModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      loginModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    openLoginBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Close when clicking overlay backdrop
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) {
+        closeModal();
+      }
+    });
+
+    // Toggle Password in Hero Card
+    function toggleHeroPassword() {
+      const heroPassword = document.getElementById('heroPassword');
+      const heroEyeIcon = document.getElementById('heroEyeIcon');
+      if (heroPassword.type === 'password') {
+        heroPassword.type = 'text';
+        heroEyeIcon.classList.remove('fa-eye-slash');
+        heroEyeIcon.classList.add('fa-eye');
+      } else {
+        heroPassword.type = 'password';
+        heroEyeIcon.classList.remove('fa-eye');
+        heroEyeIcon.classList.add('fa-eye-slash');
+      }
+    }
+
+    // Toggle Password in Modal
+    function toggleModalPassword() {
+      const modalPassword = document.getElementById('modalPassword');
+      const modalEyeIcon = document.getElementById('modalEyeIcon');
+      if (modalPassword.type === 'password') {
+        modalPassword.type = 'text';
+        modalEyeIcon.classList.remove('fa-eye-slash');
+        modalEyeIcon.classList.add('fa-eye');
+      } else {
+        modalPassword.type = 'password';
+        modalEyeIcon.classList.remove('fa-eye');
+        modalEyeIcon.classList.add('fa-eye-slash');
+      }
+    }
+
+    // Form Submit Handler Demo
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      alert('Login Berhasil! Mengarahkan ke Authenticated SPARQL Session...');
+      closeModal();
+    }
+  </script>
+</body>
+</html>
