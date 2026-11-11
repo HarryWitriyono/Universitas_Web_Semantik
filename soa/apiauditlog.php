@@ -1,0 +1,10 @@
+<?php
+/** SOA Provider: pencarian audit log khusus ADMIN. */
+require_once __DIR__.'/koneksi.php';header('Content-Type: application/json; charset=utf-8');
+function al_out($ok,$msg='',$data=[],$code=200){http_response_code($code);echo json_encode(['success'=>$ok,'message'=>$msg,'data'=>$data],JSON_UNESCAPED_UNICODE);exit;}
+$in=json_decode(file_get_contents('php://input'),true)?:$_POST;$uid=(int)($in['id_pengguna']??0);
+if(!in_array($_SERVER['REMOTE_ADDR']??'', ['127.0.0.1','::1'],true))al_out(false,'Akses ditolak.',[],403);
+$st=mysqli_prepare($koneksi,"SELECT r.kode_role FROM pengguna p JOIN roles r ON r.id_role=p.id_role WHERE p.id_pengguna=? AND p.status_aktif='Aktif'");mysqli_stmt_bind_param($st,'i',$uid);mysqli_stmt_execute($st);$u=mysqli_fetch_assoc(mysqli_stmt_get_result($st));mysqli_stmt_close($st);if(($u['kode_role']??'')!=='ADMIN')al_out(false,'Hanya ADMIN yang dapat melihat audit log.',[],403);
+$where=[];$types='';$vals=[];$q=trim((string)($in['cari']??''));if($q!==''){$where[]='(a.tabel_nama LIKE ? OR a.record_id LIKE ? OR p.username LIKE ? OR a.ip_address LIKE ?)';$like="%$q%";$types.='ssss';array_push($vals,$like,$like,$like,$like);}foreach(['aksi','tabel_nama'] as $f){if(!empty($in[$f])){$where[]="a.$f=?";$types.='s';$vals[]=$in[$f];}}if(!empty($in['dari'])){$where[]='DATE(a.created_at)>=?';$types.='s';$vals[]=$in['dari'];}if(!empty($in['sampai'])){$where[]='DATE(a.created_at)<=?';$types.='s';$vals[]=$in['sampai'];}
+$limit=max(1,min(100,(int)($in['limit']??50)));$sql='SELECT a.*,p.username,p.nama_lengkap FROM audit_log a LEFT JOIN pengguna p ON p.id_pengguna=a.id_pengguna'.($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY a.created_at DESC LIMIT '.$limit;
+$st=mysqli_prepare($koneksi,$sql);if(!$st)al_out(false,'Query audit gagal.',[],500);if($types)mysqli_stmt_bind_param($st,$types,...$vals);mysqli_stmt_execute($st);$rs=mysqli_stmt_get_result($st);$rows=[];while($r=mysqli_fetch_assoc($rs))$rows[]=$r;mysqli_stmt_close($st);al_out(true,'Audit log berhasil diambil.',['audit_log'=>$rows]);
